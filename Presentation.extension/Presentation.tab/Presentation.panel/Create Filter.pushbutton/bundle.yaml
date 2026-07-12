@@ -1,0 +1,11 @@
+title: Create Filters
+tooltip: Creates color-coded view filters from selected type names in the chosen category.
+
+  This tool reads all type names from the selected category, lets you choose which ones to use,
+  then creates one Revit view filter per selected type name.
+
+  Each filter is assigned a distinct color and applied to the active view.
+
+  Use this tool to quickly color-code foundations, columns, framing, or walls
+  for view presentation and legend workflows.
+author: Shubham Dhage

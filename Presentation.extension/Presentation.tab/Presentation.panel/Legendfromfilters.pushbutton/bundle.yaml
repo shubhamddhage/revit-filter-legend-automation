@@ -1,0 +1,12 @@
+title: Legend from Filters
+tooltip: Creates a legend view from selected visible filters in a source view.
+
+  This tool reads the visible filters applied to a selected source view,
+  lets you choose which filters to include, and creates a new legend from them.
+
+  Each selected filter is shown with a color swatch and label,
+  using the graphic overrides found in the source view.
+
+  Use this tool to quickly build clean presentation legends
+  for filter-based view graphics.
+author: Shubham Dhage
