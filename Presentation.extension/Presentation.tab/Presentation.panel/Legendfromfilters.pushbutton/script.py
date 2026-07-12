@@ -69,7 +69,10 @@ def get_all_legends():
 def ensure_legend_exists():
     legends = get_all_legends()
     if not legends:
-        forms.alert("No legend exists in this project.\nCreate at least one legend manually first.", exitscript=True)
+        forms.alert(
+            "No legend exists in this project.\nCreate at least one legend manually first.",
+            exitscript=True
+        )
     return legends
 
 
@@ -191,6 +194,7 @@ def get_filter_display_data(view):
                     color = c
             except:
                 pass
+
             if color is None:
                 try:
                     c = ogs.CutForegroundPatternColor
@@ -198,6 +202,7 @@ def get_filter_display_data(view):
                         color = c
                 except:
                     pass
+
             if color is None:
                 try:
                     c = ogs.ProjectionLineColor
@@ -225,6 +230,7 @@ def set_region_color_override(region, color, solid_fill_id):
         ogs.SetSurfaceForegroundPatternColor(color)
         ogs.SetCutForegroundPatternId(solid_fill_id)
         ogs.SetCutForegroundPatternColor(color)
+
         owner_view = doc.GetElement(region.OwnerViewId)
         owner_view.SetElementOverrides(region.Id, ogs)
     except:
@@ -309,11 +315,25 @@ with revit.Transaction("Create Filter Legend"):
     new_legend = duplicate_legend(base_legend, new_legend_name)
     clear_view_detail_items(new_legend.Id)
 
-    swatch_size = (1.0 / 8.0) / 12.0
+    legend_scale = 1.0
+    try:
+        legend_scale = float(new_legend.Scale)
+    except:
+        legend_scale = 1.0
+
+    if legend_scale <= 0:
+        legend_scale = 1.0
+
+    base_swatch_size = (1.0 / 8.0) / 12.0
+    base_text_offset_x = 0.018
+    base_row_gap = 0.030
+
+    swatch_size = base_swatch_size * legend_scale
+    text_offset_x = base_text_offset_x * legend_scale
+    row_gap = base_row_gap * legend_scale
+
     start_x = 0.0
     start_y = 0.0
-    text_offset_x = 0.018
-    row_gap = 0.030
 
     text_options = TextNoteOptions(text_type_id)
     text_options.HorizontalAlignment = HorizontalTextAlignment.Left
@@ -327,7 +347,7 @@ with revit.Transaction("Create Filter Legend"):
 
         text_pt = XYZ(
             start_x + swatch_size + text_offset_x,
-            y + swatch_size - 0.0015,
+            y + swatch_size - (0.0015 * legend_scale),
             0
         )
 
@@ -340,9 +360,10 @@ with revit.Transaction("Create Filter Legend"):
         )
 
 forms.alert(
-    "Legend created successfully.\n\nSource View: {}\nLegend Name: {}\nRows Created: {}".format(
+    "Legend created successfully.\n\nSource View: {}\nLegend Name: {}\nLegend Scale: 1:{}\nRows Created: {}".format(
         source_view.Name,
         new_legend_name,
+        int(legend_scale),
         len(filter_rows)
     ),
     title="Legend From Filters"
