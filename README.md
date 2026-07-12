@@ -6,7 +6,7 @@ A pyRevit extension that automates color-coded presentation drawings — batch-c
 
 ## Preview
 
-![Color-coded foundation plan sample](assets/sample_foundation_plan_color_legend.svg)
+![Color-coded foundation plan sample](assets/sample_foundation_plan_color_legend.png)
 
 *Sample illustrative output — actual results depend on your model's element types and view.*
 
