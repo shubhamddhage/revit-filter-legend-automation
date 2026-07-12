@@ -21,7 +21,7 @@ This toolkit replaces that entire manual workflow with two one-click tools.
 ### 🎨 Create Filter
 Batch-creates view filters and applies color overrides for every element type in the active view — foundations, columns, walls — using a fixed color palette so results stay consistent across sheets.
 
-### 🏷️ Legend Generator
+### 🏷️ Legend from Filters
 Builds a matching legend directly from the filters created above, using `FilledRegion` and `TextNote` elements placed in a dedicated Legend view. Uses a clear-and-rebuild pattern, so re-running it keeps the legend in sync as filters or types change.
 
 ## Why this exists
@@ -42,7 +42,7 @@ Builds a matching legend directly from the filters created above, using `FilledR
 
 1. Clone or download this repository:
    ```bash
-   git clone https://github.com/<your-username>/revit-filter-legend-toolkit.git
+   git clone https://github.com/shubhamddhage/revit-filter-legend-automation.git
    ```
 2. Open pyRevit's extension manager (**pyRevit tab → Extensions**), or manually copy the `.extension` folder into your pyRevit extensions directory.
 3. Reload pyRevit (**pyRevit tab → Reload**, or restart Revit).
@@ -52,20 +52,23 @@ Builds a matching legend directly from the filters created above, using `FilledR
 
 1. Open the view you want to color-code (e.g., a foundation plan).
 2. Click **Create Filter** — filters and color overrides are applied automatically based on element type.
-3. Click **Legend Generator** — a legend matching your filters is built in the project's Legend view.
+3. Click **Legend from Filters** — a legend matching your filters is built in the project's Legend view.
 4. Place the legend on your sheet as usual.
 
 ## Project Structure
 
 ```
-RevitFilterLegend.extension/
+Presentation.extension/
 ├── Presentation.tab/
-│   └── Toolkit.panel/
-│       ├── CreateFilter.pushbutton/
+│   └── Presentation.panel/
+│       ├── Create Filter.pushbutton/
 │       │   ├── script.py
-│       │   └── icon.png
-│       └── LegendGenerator.pushbutton/
+│       │   ├── ui.xaml
+│       │   ├── bundle.yaml
+│       │   └─  icon.png
+│       └── Legendfromfilters.pushbutton/
 │           ├── script.py
+│           ├──bundle.yaml
 │           └── icon.png
 ├── assets/
 │   └── sample_foundation_plan_color_legend.svg
